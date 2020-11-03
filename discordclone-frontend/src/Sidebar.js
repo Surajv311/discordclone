@@ -21,14 +21,16 @@ const Sidebar = () => {
   const [channels, setChannels] = useState([]);
 
   useEffect(() => {
-    db.collection("channels").onSnapshot((snapshot) => {
-      setChannels(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          channel: doc.data(),
-        }))
-      );
-    });
+    // FOR FIREBASE //
+    // db.collection("channels").onSnapshot((snapshot) => {
+    //   setChannels(
+    //     snapshot.docs.map((doc) => ({
+    //       id: doc.id,
+    //       channel: doc.data(),
+    //     }))
+    //   );
+    // });
+    // FOR MONGO //
   }, []);
 
   const handleAddChannel = (e) => {
