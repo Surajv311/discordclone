@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import axios from "./axios";
 import Pusher from "pusher-js";
 
+// For Mongo
 const pusher = new Pusher("9ce3e934f0eeb3e92ff8", {
   cluster: "ap2",
 });
@@ -51,9 +52,11 @@ const Sidebar = () => {
     getChannels();
 
     // for pusher
-    const channel = pusher.subscribe("my-channel");
-    channel.bind("my-event", function (data) {
+    const channel = pusher.subscribe("channels");
+    channel.bind("newChannel", function (data) {
       // alert(JSON.stringify(data));
+
+      //////////
       getChannels();
     });
   }, []);
@@ -63,8 +66,18 @@ const Sidebar = () => {
 
     const channelName = prompt("Enter a new channel name");
 
+    // Firebase
+    // if (channelName) {
+    //   db.collection("channels").add({
+    //     channelName: channelName,
+    //   });
+    // }
+    //
+
+    // Mongo
+
     if (channelName) {
-      db.collection("channels").add({
+      axios.post("/new/channel", {
         channelName: channelName,
       });
     }

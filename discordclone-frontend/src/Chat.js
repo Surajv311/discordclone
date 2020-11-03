@@ -15,6 +15,12 @@ import { useEffect } from "react";
 import db from "./firebase";
 import firebase from "firebase";
 import axios from "./axios";
+import Pusher from "pusher-js";
+
+// For Mongo
+const pusher = new Pusher("9ce3e934f0eeb3e92ff8", {
+  cluster: "ap2",
+});
 
 const Chat = () => {
   const user = useSelector(selectUser);
@@ -48,6 +54,14 @@ const Chat = () => {
 
     // MONGO....
     getConversation(channelId);
+
+    // pusher
+
+    const channel = pusher.subscribe("conversation");
+    channel.bind("newMessage", function (data) {
+      // alert(JSON.stringify(data));
+      getConversation(channelId);
+    });
   }, [channelId]);
 
   const sendMessage = (e) => {
