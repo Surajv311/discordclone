@@ -22,7 +22,7 @@ const Sidebar = () => {
   const [channels, setChannels] = useState([]);
 
   // function to get all data
-
+  // MONGO //
   const getChannels = () => {
     axios.get("get/channelList").then((res) => {
       console.log(res.data);
@@ -40,6 +40,7 @@ const Sidebar = () => {
     //     }))
     //   );
     // });
+
     // FOR MONGO //
 
     getChannels();
@@ -74,6 +75,16 @@ const Sidebar = () => {
           <AddIcon onClick={handleAddChannel} className="sidebar__addChannel" />
         </div>
         <div className="sidebar__channelsList">
+          {/* Firebase */}
+          {/* {channels.map(({id, channel}) => (
+            <SidebarChannel
+              key={id}
+              id={id}
+              channelName={channel.channelName}
+            />
+          ))} */}
+
+          {/* Mongo */}
           {channels.map((channel) => (
             <SidebarChannel
               key={channel.id}

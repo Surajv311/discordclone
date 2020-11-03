@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Sidebar from "./Sidebar";
-// We are using Matrial UI for the icons so here we are importing the icons
+// We are using Material UI for the icons so here we are importing the icons
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Chat from "./Chat";
 import { selectUser } from "./features/userSlice";

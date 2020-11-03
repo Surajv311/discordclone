@@ -3,10 +3,6 @@ import React from "react";
 import "./Message.css";
 
 const Message = ({ timestamp, user, message }) => {
-  // const Message = ({ message }) => {
-
-  // console.log(message)
-
   return (
     <div className="message">
       <Avatar src={user.photo} />
@@ -15,7 +11,11 @@ const Message = ({ timestamp, user, message }) => {
           {user.displayName}
           <span className="message__timestamp">
             {/* for adding date when chat put... */}
-            {new Date(timestamp?.toDate()).toUTCString()}
+            {/* firebase */}
+            {/* {new Date(timestamp?.toDate()).toUTCString()} */}
+
+            {/* Mongo */}
+            {new Date(parseInt(timestamp)).toDateString()}
           </span>
         </h4>
 

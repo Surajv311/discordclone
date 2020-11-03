@@ -14,6 +14,7 @@ import { useEffect } from "react";
 // importing the db & other components from firebase if it's hosted in firebase...
 import db from "./firebase";
 import firebase from "firebase";
+import axios from "./axios";
 
 const Chat = () => {
   const user = useSelector(selectUser);
@@ -22,27 +23,49 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
 
+  // MONGO
+  const getConversation = (channelId) => {
+    if (channelId) {
+      axios.get(`/get/conversation?id=${channelId}`).then((res) => {
+        setMessages(res.data[0].conversation);
+      });
+    }
+  };
   // using react-hooks...
   useEffect(() => {
-    if (channelId) {
-      db.collection("channels")
-        .doc(channelId)
-        .collection("messages")
-        .orderBy("timestamp", "desc")
-        .onSnapshot((snapshot) => {
-          setMessages(snapshot.docs.map((doc) => doc.data()));
-        });
-    }
+    //  for storing messages...
+    //
+    //  FIREBASE..//
+    // if (channelId) {
+    //   db.collection("channels")
+    //     .doc(channelId)
+    //     .collection("messages")
+    //     .orderBy("timestamp", "desc")
+    //     .onSnapshot((snapshot) => {
+    //       setMessages(snapshot.docs.map((doc) => doc.data()));
+    //     });
+    // }
+
+    // MONGO....
+    getConversation(channelId);
   }, [channelId]);
 
   const sendMessage = (e) => {
     e.preventDefault();
 
-    db.collection("channels").doc(channelId).collection("messages").add({
+    // FIREBASE
+    // db.collection("channels").doc(channelId).collection("messages").add({
+    //   message: input,
+    //   user: user,
+    //   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //   // timestamp to avoid time conflicts in various zones fo world...
+    // });
+
+    // MONGO;
+    axios.post(`/new/message?id = ${channelId}`, {
       message: input,
+      timestamp: Date.now(),
       user: user,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      // timestamp to avoid time conflicts in various zones fo world...
     });
 
     // this would clean the interface everytime it's called
