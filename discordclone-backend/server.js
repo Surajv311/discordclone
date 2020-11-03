@@ -14,6 +14,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const mongoData = require("./mongoData");
 
 // **** app config
 
@@ -52,12 +53,45 @@ mongoose.connect(connection_url, {
   useUnifiedTopology: true,
 });
 
-//const db = mongoose.connection;
-
 // **** api routes
 
 // https code 200 -> OK
 app.get("/", (req, res) => res.status(200).send("working"));
+
+app.post("/new/channel", (req, res) => {
+  const dbData = req.body;
+
+  mongoData.create(dbData, (err, data) => {
+    if (err) {
+      // if error then we send internal server error
+      res.status(500).send(err);
+    } else {
+      // send data that we just added in the DB
+      res.status(201).send({ data });
+    }
+  });
+});
+
+app.get("/get/channelList", (req, res) => {
+  mongoData.find((err, data) => {
+    if (err) {
+      // if error then we send internal server error
+      res.status(500).send(err);
+    } else {
+      let channels = [];
+      data.map((channelData) => {
+        const channelInfo = {
+          id: channelData._id,
+          name: channelData.channelName,
+        };
+        channels.push(channelInfo);
+      });
+
+      // send data that we just added in the DB
+      res.status(200).send(channels);
+    }
+  });
+});
 
 // **** listener
 
