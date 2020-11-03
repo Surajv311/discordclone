@@ -15,11 +15,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const mongoData = require("./mongoData");
-
+const Pusher = require("pusher");
 // **** app config
 
 const app = express();
 const port = process.env.PORT || 4000;
+
+const pusher = new Pusher({
+  appId: "1101676",
+  key: "9ce3e934f0eeb3e92ff8",
+  secret: "7e1b21dbe0a78fa8ef0f",
+  cluster: "ap2",
+  useTLS: true,
+});
 
 // middleware - mediates between frontend & backend...
 // we would be able to handle json files & send/receive projects...
@@ -51,6 +59,32 @@ mongoose.connect(connection_url, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+// once the connection is open -> we fire off the function
+db.once("open", () => {
+  console.log("DB connected");
+
+  const msgCollection = db.collection("conversations");
+  const changeStream = msgCollection.watch();
+  // we fire off a function once there is a change in DB
+
+  changeStream.on("change", (change) => {
+    console.log("change occured", change);
+
+    if (change.operationType === "insert") {
+      pusher.trigger("channels", "newChannel", {
+        change: change,
+      });
+    } else if (change.operationType === "update") {
+      pusher.trigger("conversation", "newMessage", {
+        change: change,
+      });
+    } else {
+      console.log("error triggering pusher");
+    }
+  });
 });
 
 // **** api routes
