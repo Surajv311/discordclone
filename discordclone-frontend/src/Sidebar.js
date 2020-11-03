@@ -16,6 +16,11 @@ import db, { auth } from "./firebase";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "./axios";
+import Pusher from "pusher-js";
+
+const pusher = new Pusher("9ce3e934f0eeb3e92ff8", {
+  cluster: "ap2",
+});
 
 const Sidebar = () => {
   const user = useSelector(selectUser);
@@ -44,6 +49,13 @@ const Sidebar = () => {
     // FOR MONGO //
 
     getChannels();
+
+    // for pusher
+    const channel = pusher.subscribe("my-channel");
+    channel.bind("my-event", function (data) {
+      // alert(JSON.stringify(data));
+      getChannels();
+    });
   }, []);
 
   const handleAddChannel = (e) => {
