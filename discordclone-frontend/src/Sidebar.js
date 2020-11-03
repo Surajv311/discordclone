@@ -15,10 +15,20 @@ import { selectUser } from "./features/userSlice";
 import db, { auth } from "./firebase";
 import { useState } from "react";
 import { useEffect } from "react";
+import axios from "./axios";
 
 const Sidebar = () => {
   const user = useSelector(selectUser);
   const [channels, setChannels] = useState([]);
+
+  // function to get all data
+
+  const getChannels = () => {
+    axios.get("get/channelList").then((res) => {
+      console.log(res.data);
+      setChannels(res.data);
+    });
+  };
 
   useEffect(() => {
     // FOR FIREBASE //
@@ -31,6 +41,8 @@ const Sidebar = () => {
     //   );
     // });
     // FOR MONGO //
+
+    getChannels();
   }, []);
 
   const handleAddChannel = (e) => {
@@ -62,11 +74,11 @@ const Sidebar = () => {
           <AddIcon onClick={handleAddChannel} className="sidebar__addChannel" />
         </div>
         <div className="sidebar__channelsList">
-          {channels.map(({ id, channel }) => (
+          {channels.map((channel) => (
             <SidebarChannel
-              key={id}
-              id={id}
-              channelName={channel.channelName}
+              key={channel.id}
+              id={channel.id}
+              channelName={channel.name}
             />
           ))}
         </div>
