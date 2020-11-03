@@ -40,6 +40,20 @@ app.use(cors());
 
 //  **** DB config
 
+// mongodb+srv://admin:<password>@cluster0.qa9j4.mongodb.net/<dbname>?retryWrites=true&w=majority
+const connection_url =
+  "mongodb+srv://admin:9G5z29mSBzwF1GDr@cluster0.sczjl.mongodb.net/discordclonedb?retryWrites=true&w=majority";
+
+mongoose.connect(connection_url, {
+  // to connect smoothly to my mongodb
+
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+//const db = mongoose.connection;
+
 // **** api routes
 
 // https code 200 -> OK
