@@ -67,7 +67,7 @@ app.post("/new/channel", (req, res) => {
       res.status(500).send(err);
     } else {
       // send data that we just added in the DB
-      res.status(201).send({ data });
+      res.status(201).send(data);
     }
   });
 });
@@ -87,6 +87,53 @@ app.get("/get/channelList", (req, res) => {
         channels.push(channelInfo);
       });
 
+      // send data that we just added in the DB
+      res.status(200).send(channels);
+    }
+  });
+});
+
+//  for putting new message
+app.post("/new/message", (req, res) => {
+  const newMessage = req.body;
+  //    to inject a new message
+  mongoData.update(
+    { _id: req.query.id },
+    { $push: { conversation: req.body } },
+    (err, data) => {
+      if (err) {
+        // if error then we send internal server error
+        res.status(500).send(err);
+        console.log(err);
+      } else {
+        // send data that we just added in the DB
+        res.status(201).send(data);
+      }
+    }
+  );
+});
+
+app.get("/get/data", (req, res) => {
+  mongoData.find((err, data) => {
+    if (err) {
+      // if error then we send internal server error
+      res.status(500).send(err);
+    } else {
+      // send data that we just added in the DB
+      res.status(200).send(channels);
+    }
+  });
+});
+
+//  for retrieving info...
+
+app.get("/get/conversation", (req, res) => {
+  const id = req.query.id;
+  mongoData.find({ _id: id }, (err, data) => {
+    if (err) {
+      // if error then we send internal server error
+      res.status(500).send(err);
+    } else {
       // send data that we just added in the DB
       res.status(200).send(channels);
     }
