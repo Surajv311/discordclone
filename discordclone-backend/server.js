@@ -22,7 +22,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 ////////////////////************************************/////////////////////
-// ***NOTE: PUSHER API KEYS COMMENTED...
+// *** PUSHER API KEYS COMMENTED...-> to be encrypted... 
 
 const pusher = new Pusher({
  // appId: "1101676",
@@ -57,7 +57,7 @@ app.use(cors());
 // mongodb+srv://admin:<password>@cluster0.qa9j4.mongodb.net/<dbname>?retryWrites=true&w=majority
 
 //////////////////////***********************************////////////////////
-// ***NOTE: MONGODB CONNECTION URL KEY COMMENTED...
+// ***MONGODB CONNECTION URL KEY COMMENTED... -> to be encrypted... 
 const connection_url =
   //"mongodb+srv://admin:9G5z29mSBzwF1GDr@cluster0.sczjl.mongodb.net/discordclonedb?retryWrites=true&w=majority";
 
