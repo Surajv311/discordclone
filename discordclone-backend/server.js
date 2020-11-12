@@ -21,13 +21,18 @@ const Pusher = require("pusher");
 const app = express();
 const port = process.env.PORT || 4000;
 
+////////////////////************************************/////////////////////
+// ***NOTE: PUSHER API KEYS COMMENTED...
+
 const pusher = new Pusher({
-  appId: "1101676",
-  key: "9ce3e934f0eeb3e92ff8",
-  secret: "7e1b21dbe0a78fa8ef0f",
-  cluster: "ap2",
-  useTLS: true,
+ // appId: "1101676",
+ // key: "9ce3e934f0eeb3e92ff8",
+ // secret: "7e1b21dbe0a78fa8ef0f",
+ // cluster: "ap2",
+ // useTLS: true,
 });
+
+//////////////////////***********************************////////////////////
 
 // middleware - mediates between frontend & backend...
 // we would be able to handle json files & send/receive projects...
@@ -50,8 +55,13 @@ app.use(cors());
 //  **** DB config
 
 // mongodb+srv://admin:<password>@cluster0.qa9j4.mongodb.net/<dbname>?retryWrites=true&w=majority
+
+//////////////////////***********************************////////////////////
+// ***NOTE: MONGODB CONNECTION URL KEY COMMENTED...
 const connection_url =
-  "mongodb+srv://admin:9G5z29mSBzwF1GDr@cluster0.sczjl.mongodb.net/discordclonedb?retryWrites=true&w=majority";
+  //"mongodb+srv://admin:9G5z29mSBzwF1GDr@cluster0.sczjl.mongodb.net/discordclonedb?retryWrites=true&w=majority";
+
+//////////////////////***********************************////////////////////
 
 mongoose.connect(connection_url, {
   // to connect smoothly to my mongodb
