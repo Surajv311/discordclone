@@ -25,9 +25,9 @@ const port = process.env.PORT || 4000;
 // *** PUSHER API KEYS COMMENTED...-> to be encrypted... 
 
 const pusher = new Pusher({
- // appId: "1101676",
- // key: "9ce3e934f0eeb3e92ff8",
- // secret: "7e1b21dbe0a78fa8ef0f",
+ // appId: "123",
+ // key: "xyz",
+ // secret: "abc",
  // cluster: "ap2",
  // useTLS: true,
 });
@@ -54,12 +54,12 @@ app.use(cors());
 
 //  **** DB config
 
-// mongodb+srv://admin:<password>@cluster0.qa9j4.mongodb.net/<dbname>?retryWrites=true&w=majority
+// mongodb+srv://admin:<password>@cluster0.abcde.mongodb.net/<dbname>?retryWrites=true&w=majority
 
 //////////////////////***********************************////////////////////
 // ***MONGODB CONNECTION URL KEY COMMENTED... -> to be encrypted... 
 const connection_url =
-  //"mongodb+srv://admin:9G5z29mSBzwF1GDr@cluster0.sczjl.mongodb.net/discordclonedb?retryWrites=true&w=majority";
+  //"mongodb+srv://admin:1234abcd@cluster0.abcd.mongodb.net/discordclonedb?retryWrites=true&w=majority";
 
 //////////////////////***********************************////////////////////
 
