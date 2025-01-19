@@ -4,13 +4,13 @@ import firebase from "firebase";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCmWOC86XTO4gpiehwq7F23g8D2k3oO8mE",
+  apiKey: "abcd1234",
   authDomain: "mydiscordcloneapp.firebaseapp.com",
   databaseURL: "https://mydiscordcloneapp.firebaseio.com",
   projectId: "mydiscordcloneapp",
   storageBucket: "mydiscordcloneapp.appspot.com",
-  messagingSenderId: "314106613102",
-  appId: "1:314106613102:web:155cf672b56614a42f057f",
+  messagingSenderId: "abcd1234",
+  appId: "1:abcd1234:web:abcd1234",
   measurementId: "G-9R9PNYQXYS",
 };
 
